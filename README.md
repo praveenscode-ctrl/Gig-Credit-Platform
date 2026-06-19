@@ -1,6 +1,5 @@
 # GigCredit — Alternative Credit Scoring for Gig Workers
 
-> **Hackathon Project — Rotatech 2026**
 > Empowering India's 300+ million gig workers with fair, transparent, and offline-capable credit scoring using alternative data and on-device AI.
 
 ---
@@ -221,7 +220,6 @@ flutter run
 
 ---
 
-## Team
+## Project
 
-**Praveen Kumar P** — Full Stack + ML  
-Rotatech Hackathon 2026
+GigCredit is an open-source alternative credit scoring platform built for India's informal gig workforce.
