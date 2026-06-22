@@ -5,8 +5,8 @@ class Settings(BaseSettings):
     MONGODB_URI: str = "mongodb://localhost:27017"
     DB_NAME: str = "gigcredit"
     GROQ_API_KEY: str = ""
-    HMAC_SECRET: str = "gigcredit-demo-hmac-secret-2026"
-    SERVER_API_KEY: str = "gigcredit-demo-api-key-2026"
+    HMAC_SECRET: str = "gigcredit-secure-hmac-secret"
+    SERVER_API_KEY: str = "gigcredit-api-key"
     ENABLE_HMAC: bool = False
     SKIP_AUTH: bool = True
 

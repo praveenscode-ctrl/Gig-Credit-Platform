@@ -1208,7 +1208,7 @@ class _AppFooter extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            '© 2026 GigCredit. All rights reserved.',
+            '© GigCredit. All rights reserved.',
             style: AppTypography.caption.copyWith(fontSize: 11),
           ),
         ],

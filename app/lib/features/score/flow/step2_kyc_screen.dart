@@ -802,6 +802,28 @@ class _Step2KycScreenState extends ConsumerState<Step2KycScreen> {
               isStepVerified: isVerified,
               onVerify: _verifyAadhaar,
             ),
+          const SizedBox(height: 8),
+          if (_aadhaarOtpSent)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.amber.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.amber.shade600, width: 1),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.science_outlined, color: Colors.amber.shade400, size: 15),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: Text(
+                      'Demo purpose only — OTP verification is simulated for demonstration.',
+                      style: TextStyle(fontSize: 11, color: Colors.white70, height: 1.4),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           const SizedBox(height: 16),
 
           Opacity(
@@ -879,6 +901,28 @@ class _Step2KycScreenState extends ConsumerState<Step2KycScreen> {
               isVerifying: _panVerifying,
               isStepVerified: isVerified,
               onVerify: _verifyPan,
+            ),
+          const SizedBox(height: 8),
+          if (_panOtpSent)
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: Colors.amber.withValues(alpha: 0.12),
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: Colors.amber.shade600, width: 1),
+              ),
+              child: Row(
+                children: [
+                  Icon(Icons.science_outlined, color: Colors.amber.shade400, size: 15),
+                  const SizedBox(width: 8),
+                  const Expanded(
+                    child: Text(
+                      'Demo purpose only — OTP verification is simulated for demonstration.',
+                      style: TextStyle(fontSize: 11, color: Colors.white70, height: 1.4),
+                    ),
+                  ),
+                ],
+              ),
             ),
           const SizedBox(height: 16),
 

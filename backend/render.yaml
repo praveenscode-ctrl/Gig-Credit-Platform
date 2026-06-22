@@ -14,9 +14,9 @@ services:
       - key: GROQ_API_KEY
         sync: false
       - key: HMAC_SECRET
-        value: gigcredit-demo-hmac-secret-2026
+        value: gigcredit-secure-hmac-secret
       - key: SERVER_API_KEY
-        value: gigcredit-demo-api-key-2026
+        value: gigcredit-api-key
       - key: ENABLE_HMAC
         value: "false"
       - key: SKIP_AUTH

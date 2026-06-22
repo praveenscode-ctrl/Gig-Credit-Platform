@@ -20,7 +20,7 @@ from app.utils.error_handlers import AppException
 router = APIRouter()
 
 # Read JWT secret from environment settings — never hardcode in production
-SECRET_KEY = settings.HMAC_SECRET or "gigcredit_secure_jwt_secret_key_2026"
+SECRET_KEY = settings.HMAC_SECRET or "gigcredit_secure_jwt_secret"
 ALGORITHM = "HS256"
 
 

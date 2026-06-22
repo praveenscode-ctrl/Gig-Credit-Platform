@@ -41,10 +41,6 @@ class RealApiService implements ApiService {
   @override
   Future<Map<String, dynamic>> sendOtp(String mobile,
       {bool isSignup = false, String? name}) async {
-    // Judge mock bypass
-    if (mobile == '9094909490' || mobile == '+919094909490') {
-      return {'status': 'success', 'message': 'OTP sent via Twilio'};
-    }
 
     final formattedMobile = _formatMobile(mobile);
     final basicAuth = base64Encode(utf8
@@ -78,29 +74,6 @@ class RealApiService implements ApiService {
 
   @override
   Future<Map<String, dynamic>> verifyOtp(String mobile, String otp) async {
-    // Standardize to generic mock flow for +919999999999 to bypass twilio rate limits during dev
-    if (mobile == '9999999999' || mobile == '+919999999999') {
-      if (otp == '123456') {
-        return {
-          'status': 'success',
-          'token': 'mock-dev-token-999',
-          'user': {'name': 'Test User'}
-        };
-      }
-    }
-
-    // Judge mock bypass
-    if (mobile == '9094909490' || mobile == '+919094909490') {
-      if (otp == '909490') {
-        return {
-          'status': 'success',
-          'token': 'mock-dev-token-judge',
-          'user': {'name': 'demo'}
-        };
-      } else {
-        throw Exception('Invalid OTP');
-      }
-    }
 
     final formattedMobile = _formatMobile(mobile);
     final basicAuth = base64Encode(utf8
@@ -123,10 +96,9 @@ class RealApiService implements ApiService {
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['status'] == 'approved') {
-          // Twilio approved. We return a fake token since backend isn't handling auth right now.
           return {
             'status': 'success',
-            'token': 'twilio-auth-token-12345',
+            'token': 'twilio-verified-${DateTime.now().millisecondsSinceEpoch}',
             'user': {'name': 'Gig Worker'}
           };
         } else {

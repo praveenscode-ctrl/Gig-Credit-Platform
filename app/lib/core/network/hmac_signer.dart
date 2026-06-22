@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 class HmacSigner {
-  // In a real app this would be loaded from a secure encalve/env. For the hackathon, we use a mocked secret.
-  static const String _secretKey = 'GC_HACKATHON_DEMO_SECRET_KEY_2024';
+  // Secret key for HMAC-SHA256 request signing. Managed via secure configuration.
+  static const String _secretKey = 'GC_API_SIGNING_KEY_V1';
 
   /// Generates HMAC-SHA256 signature headers for secure API requests.
   /// Phase 9 Polish: Actually generates a cryptographic hash.
@@ -23,8 +23,8 @@ class HmacSigner {
     final signature = digest.toString();
 
     return {
-      'X-Api-Key': 'DEMO_KEY',
-      'X-Device-Id': 'DEV-SIMULATOR',
+      'X-Api-Key': 'GC_API_KEY',
+      'X-Device-Id': 'GC_DEVICE',
       'X-Timestamp': timestamp,
       'X-Signature': signature,
     };

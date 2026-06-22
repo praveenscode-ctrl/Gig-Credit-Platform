@@ -53,8 +53,8 @@ class CausalRule {
 
   factory CausalRule.fromJson(Map<String, dynamic> json) {
     return CausalRule(
-      ruleId: json['rule_id'] as String? ?? 'mock_rule_id',
-      name: json['name'] as String? ?? json['rule'] as String? ?? 'Mock Rule',
+      ruleId: json['rule_id'] as String? ?? 'rule_unspecified',
+      name: json['name'] as String? ?? json['rule'] as String? ?? 'Unnamed Rule',
       triggers: json.containsKey('triggers')
           ? (json['triggers'] as List)
               .map((t) => CausalTrigger.fromJson(t as Map<String, dynamic>))

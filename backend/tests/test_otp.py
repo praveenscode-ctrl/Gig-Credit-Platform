@@ -10,7 +10,7 @@ async def test_otp_flow():
     async with httpx.AsyncClient() as client:
         # We need the HMAC headers if required, but for local testing maybe we can just hit it.
         # Let's see if hmac is strictly enforced.
-        headers = {"X-API-Key": "gigcredit-demo-api-key-2026", "X-Signature": "fake_sig", "X-Timestamp": "1234"}
+        headers = {"X-API-Key": "gigcredit-api-key", "X-Signature": "fake_sig", "X-Timestamp": "1234"}
         
         try:
             res1 = await client.post(f"{base_url}/auth/otp/send", json={"mobile": mobile}, headers=headers)

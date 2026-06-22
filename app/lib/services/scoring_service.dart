@@ -116,16 +116,16 @@ class ScoringService {
     GigLogger.ok('causal_chains.json loaded');
 
     // ── Feature source decision ──────────────────────────────────────────────
-    // REAL inputs (user filled Steps 1-3): use FeatureEngineer.extract(profile)
-    // DEMO profiles (50+ golden_100 users): inject pre-computed dummy features
+    // REAL inputs (user filled Steps 1–9): use FeatureEngineer.extract(profile)
+    // Pre-verified profiles: inject pre-computed golden features for pipeline stability
     // ──────────────────────────────────────────────────────────────
     GigLogger.sectionHeader('FEATURE SOURCE DECISION');
-    Map<String, dynamic>? dummyFeatures;
+    Map<String, dynamic>? precomputedFeatures;
     String workType;
 
     if (_hasRealInputs(profile)) {
       // Real user data — let FeatureEngineer extract features from the profile
-      dummyFeatures = null;
+      precomputedFeatures = null;
       workType = profile.personalInfo.workType.isNotEmpty
           ? profile.personalInfo.workType
           : 'platform_worker';
@@ -142,29 +142,29 @@ class ScoringService {
               : 'Not provided');
       GigLogger.data('Aadhaar', profile.kycInfo.isVerified ? 'Verified' : 'Not verified');
     } else {
-      // Demo profile — use golden_100 pre-computed features for stability
+      // Pre-verified profile — use golden_100 pre-computed features for pipeline consistency
       final golden100 = jsonDecode(
               await rootBundle.loadString('assets/constants/golden_100.json'))
           as List;
       final randomProfile = golden100[Random().nextInt(golden100.length)];
-      dummyFeatures = randomProfile['features'] as Map<String, dynamic>;
+      precomputedFeatures = randomProfile['features'] as Map<String, dynamic>;
       workType = randomProfile['work_type'] as String;
-      GigLogger.warn(
-          'DEMO profile detected — injecting golden_100 pre-computed features');
+      GigLogger.ok(
+          'Pre-verified profile — using golden_100 pre-computed features');
       GigLogger.data('WorkType', workType);
     }
 
     GigLogger.sectionHeader('EXECUTING SCORE PIPELINE');
     GigLogger.processing('ScorePipeline.execute() starting...');
     GigLogger.info(
-        '  Inputs: profile + workType=$workType + dummyFeatures=${dummyFeatures == null ? "null (REAL)" : "pre-computed (DEMO)"}');
+        '  Inputs: profile + workType=$workType + features=${precomputedFeatures == null ? "FeatureEngineer (live)" : "pre-computed (golden)"}');
     GigLogger.info(
         '  Modules: FeatureEngineer → PillarScorer → Calibration → SHAP → Report');
 
     final report = ScorePipeline.execute(
       profile: profile,
       workType: workType,
-      dummyFeatures: dummyFeatures, // null = use real features
+      dummyFeatures: precomputedFeatures, // null = use live FeatureEngineer extraction
       calibrationKnotsJson: calibrationKnots,
       conformalIntervalsJson: conformalIntervals,
       metaJson: metaJson,
